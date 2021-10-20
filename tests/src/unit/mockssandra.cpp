@@ -1420,6 +1420,7 @@ Request::Request(int8_t version, int8_t flags, int16_t stream, int8_t opcode, co
     , opcode_(opcode)
     , body_(body)
     , client_(client)
+    , timer_("mock_request")
     , timer_action_(NULL) {
   (void)flags_; // TODO: Implement custom payload etc.
 }

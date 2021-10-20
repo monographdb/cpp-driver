@@ -365,7 +365,9 @@ WktLexer::Token WktLexer::next_token() {
         {
           switch (act) {
             case 8: {
-              { p = ((te)) - 1; }
+              {
+                p = ((te)) - 1;
+              }
               if (!skip_number_) {
                 number_ = atof(datastax::String(ts, te).c_str());
               }
@@ -376,7 +378,9 @@ WktLexer::Token WktLexer::next_token() {
               }
             } break;
             case 10: {
-              { p = ((te)) - 1; }
+              {
+                p = ((te)) - 1;
+              }
               token = TK_INVALID;
               {
                 p++;

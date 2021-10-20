@@ -26,10 +26,11 @@ public:
   TimerUnitTest()
       : count_(0)
       , repeat_timeout_(0)
-      , restart_count_(0) {}
+      , restart_count_(0)
+      , restart_timer_("test_restart") {}
 
   void test_once(uint64_t timeout) {
-    Timer timer;
+    Timer timer("test");
 
     timer.start(loop(), timeout, bind_callback(&TimerUnitTest::on_timer_once, this));
 
@@ -42,7 +43,7 @@ public:
   }
 
   void test_repeat(uint64_t timeout) {
-    Timer timer;
+    Timer timer("test");
 
     repeat_timeout_ = timeout;
 
@@ -57,7 +58,7 @@ public:
   }
 
   void test_stop() {
-    Timer timer;
+    Timer timer("test");
 
     timer.start(loop(), 1, bind_callback(&TimerUnitTest::on_timer_once, this));
 
@@ -78,7 +79,7 @@ public:
   }
 
   void test_restart() {
-    Timer timer;
+    Timer timer("test");
 
     restart_timer_.start(loop(), 10, bind_callback(&TimerUnitTest::on_timer_once, this));
 

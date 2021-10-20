@@ -48,7 +48,8 @@ public:
   };
 
   Resolver(const String& hostname, int port, const Callback& callback)
-      : hostname_(hostname)
+      : timer_("resolver")
+      , hostname_(hostname)
       , port_(port)
       , status_(NEW)
       , callback_(callback) {

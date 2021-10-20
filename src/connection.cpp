@@ -113,7 +113,9 @@ Connection::Connection(const Socket::Ptr& socket, const Host::Ptr& host,
     , protocol_version_(protocol_version)
     , idle_timeout_secs_(idle_timeout_secs)
     , heartbeat_interval_secs_(heartbeat_interval_secs)
-    , heartbeat_outstanding_(false) {
+    , heartbeat_outstanding_(false)
+    , heartbeat_timer_("connection_heartbeat")
+    , terminate_timer_("connection_terminate") {
   inc_ref(); // For the event loop
   host_->increment_connection_count();
 }

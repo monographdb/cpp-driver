@@ -44,7 +44,8 @@ public:
   };
 
   NameResolver(const Address& address, const Callback& callback)
-      : address_(address)
+      : timer_("name_resolver")
+      , address_(address)
       , status_(NEW)
       , uv_status_(-1)
       , callback_(callback) {

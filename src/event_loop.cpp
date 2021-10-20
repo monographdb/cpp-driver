@@ -16,6 +16,7 @@
 
 #include "event_loop.hpp"
 #include "ssl.hpp"
+#include "timer.hpp"
 
 #if !defined(_WIN32)
 #include <signal.h>
@@ -54,6 +55,15 @@ EventLoop::EventLoop()
   loop_.data = this;
 }
 
+static void debug(uv_handle_t* handle, void* arg) {
+  if (handle->type == UV_TIMER) {
+    if (handle->data) {
+      Timer* timer = reinterpret_cast<Timer*>(handle->data);
+      printf("Timer '%s' not closed\n", timer->name());
+    }
+  }
+}
+
 EventLoop::~EventLoop() {
   if (is_loop_initialized_) {
     int rc = uv_loop_close(loop());
@@ -62,6 +72,7 @@ EventLoop::~EventLoop() {
       rc = uv_loop_close(loop());
       if (rc != 0) {
         uv_print_all_handles(loop(), stderr);
+        uv_walk(loop(), debug, NULL);
         assert(false && "Event loop still has pending handles");
       }
     }

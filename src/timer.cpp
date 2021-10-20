@@ -18,9 +18,10 @@
 
 using namespace datastax::internal::core;
 
-Timer::Timer()
+Timer::Timer(const char* name)
     : handle_(NULL)
-    , state_(CLOSED) {}
+    , state_(CLOSED)
+    , name_(name) {}
 
 Timer::~Timer() { stop(); }
 

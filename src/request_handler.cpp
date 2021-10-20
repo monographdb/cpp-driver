@@ -162,6 +162,7 @@ RequestHandler::RequestHandler(const Request::ConstPtr& request, const ResponseF
     , future_(future)
     , is_done_(false)
     , running_executions_(0)
+    , timer_("request_handler")
     , start_time_ns_(uv_hrtime())
     , listener_(&nop_request_listener__)
     , manager_(NULL)
@@ -412,6 +413,7 @@ RequestExecution::RequestExecution(RequestHandler* request_handler)
     : RequestCallback(request_handler->wrapper())
     , request_handler_(request_handler)
     , current_host_(request_handler->next_host(RequestHandler::Protected()))
+    , schedule_timer_("request_execution_schedule")
     , num_retries_(0)
     , start_time_ns_(uv_hrtime()) {}
 

@@ -190,7 +190,8 @@ const char* RequestCallback::state_string() const {
 
 SimpleRequestCallback::SimpleRequestCallback(const String& query, uint64_t request_timeout_ms)
     : RequestCallback(
-          RequestWrapper(Request::ConstPtr(new QueryRequest(query)), request_timeout_ms)) {}
+          RequestWrapper(Request::ConstPtr(new QueryRequest(query)), request_timeout_ms))
+    , timer_("simple_request_callback") {}
 
 void SimpleRequestCallback::on_write(Connection* connection) {
   uint64_t request_timeout_ms = this->request_timeout_ms();

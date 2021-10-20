@@ -26,6 +26,7 @@ DelayedConnector::DelayedConnector(const Host::Ptr& host, ProtocolVersion protoc
     : connector_(
           new Connector(host, protocol_version, bind_callback(&DelayedConnector::on_connect, this)))
     , callback_(callback)
+    , delayed_connect_timer_("delayed_connector")
     , is_canceled_(false) {}
 
 DelayedConnector* DelayedConnector::with_keyspace(const String& keyspace) {

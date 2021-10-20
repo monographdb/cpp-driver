@@ -234,7 +234,9 @@ Cluster::Cluster(const ControlConnection::Ptr& connection, ClusterListener* list
     , hosts_(hosts)
     , local_dc_(local_dc)
     , supported_options_(supported_options)
-    , is_recording_events_(settings.disable_events_on_startup) {
+    , timer_("cluster")
+    , is_recording_events_(settings.disable_events_on_startup)
+    , monitor_reporting_timer_("cluster_monitor_reporting") {
   inc_ref();
   connection_->set_listener(this);
 

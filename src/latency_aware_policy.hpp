@@ -45,6 +45,7 @@ public:
   LatencyAwarePolicy(LoadBalancingPolicy* child_policy, const Settings& settings)
       : ChainedLoadBalancingPolicy(child_policy)
       , min_average_(-1)
+      , timer_("latency_aware_policy")
       , settings_(settings)
       , hosts_(new HostVec()) {}
 

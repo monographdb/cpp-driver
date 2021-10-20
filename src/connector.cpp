@@ -173,6 +173,7 @@ Connector::Connector(const Host::Ptr& host, ProtocolVersion protocol_version,
     , host_(host)
     , socket_connector_(
           new SocketConnector(host->address(), bind_callback(&Connector::on_connect, this)))
+    , timer_("connector")
     , error_code_(CONNECTION_OK)
     , protocol_version_(protocol_version)
     , event_types_(0)

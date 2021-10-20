@@ -29,11 +29,12 @@ class Timer {
 public:
   typedef internal::Callback<void, Timer*> Callback;
 
-  Timer();
+  Timer(const char* name);
   ~Timer();
 
   int start(uv_loop_t* loop, uint64_t timeout, const Callback& callback);
   void stop();
+  const char* name() { return name_; }
 
 public:
   bool is_running() const { return state_ == STARTED; }
@@ -52,6 +53,7 @@ private:
   AllocatedT<uv_timer_t>* handle_;
   State state_;
   Callback callback_;
+  const char* name_;
 
 private:
   DISALLOW_COPY_AND_ASSIGN(Timer);

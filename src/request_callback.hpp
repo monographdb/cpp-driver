@@ -220,10 +220,12 @@ public:
 
   SimpleRequestCallback(const Request::ConstPtr& request,
                         uint64_t request_timeout_ms = CASS_DEFAULT_REQUEST_TIMEOUT_MS)
-      : RequestCallback(RequestWrapper(request, request_timeout_ms)) {}
+      : RequestCallback(RequestWrapper(request, request_timeout_ms))
+      , timer_("simple_request_callback") {}
 
   SimpleRequestCallback(const RequestWrapper& wrapper)
-      : RequestCallback(wrapper) {}
+      : RequestCallback(wrapper)
+      , timer_("simple_request_callback") {}
 
 protected:
   virtual void on_internal_write(Connection* connection) {}

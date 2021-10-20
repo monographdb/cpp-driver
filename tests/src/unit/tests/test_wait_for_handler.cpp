@@ -131,7 +131,8 @@ public:
 private:
   struct CloseConnectionHandler {
     CloseConnectionHandler(const Connection::Ptr& connection)
-        : connection(connection) {}
+        : timer("test_close_connection_handler")
+        , connection(connection) {}
 
     void on_timeout(Timer* timer) {
       connection->close();

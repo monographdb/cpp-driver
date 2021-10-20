@@ -148,7 +148,9 @@ void WaitForHandler::on_timeout(Timer* timer) {
 WaitForHandler::WaitForHandler(const RequestHandler::Ptr& request_handler,
                                const Host::Ptr& current_host, const Response::Ptr& response,
                                uint64_t max_wait_time_ms, uint64_t retry_wait_time_ms)
-    : is_finished_(false)
+    : timer_("wait_for_handler")
+    , retry_timer_("wait_for_handler_retry")
+    , is_finished_(false)
     , start_time_ms_(get_time_since_epoch_ms())
     , max_wait_time_ms_(max_wait_time_ms)
     , retry_wait_time_ms_(retry_wait_time_ms)

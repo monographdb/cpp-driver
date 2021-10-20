@@ -105,6 +105,7 @@ Atomic<size_t> SocketConnector::resolved_address_offset_(0);
 SocketConnector::SocketConnector(const Address& address, const Callback& callback)
     : address_(address)
     , callback_(callback)
+    , no_resolve_timer_("socket_connector_no_resolve")
     , error_code_(SOCKET_OK)
     , ssl_error_code_(CASS_OK) {}
 
