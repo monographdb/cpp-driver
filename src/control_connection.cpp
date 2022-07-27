@@ -409,7 +409,7 @@ void ControlConnection::handle_refresh_node(RefreshNodeCallback* callback) {
 
   if (!found_host) {
     String address_str = callback->address.to_string();
-    LOG_ERROR("No row found for host %s in %s's peers system table. "
+    LOG_INFO("No row found for host %s in %s's peers system table. "
               "%s will be ignored.",
               address_str.c_str(), address_string().c_str(), address_str.c_str());
     return;
@@ -463,7 +463,7 @@ void ControlConnection::on_refresh_keyspace(ControlRequestCallback* callback) {
 void ControlConnection::handle_refresh_keyspace(RefreshKeyspaceCallback* callback) {
   const ResultResponse::Ptr result = callback->result();
   if (result->row_count() == 0) {
-    LOG_ERROR("No row found for keyspace %s in system schema table.",
+    LOG_INFO("No row found for keyspace %s in system schema table.",
               callback->keyspace_name.c_str());
     return;
   }
@@ -554,7 +554,7 @@ void ControlConnection::handle_refresh_table_or_view(RefreshTableCallback* callb
   if (!tables_result || tables_result->row_count() == 0) {
     ResultResponse::Ptr views_result(callback->result("views"));
     if (!views_result || views_result->row_count() == 0) {
-      LOG_ERROR("No row found for table (or view) %s.%s in system schema tables.",
+      LOG_INFO("No row found for table (or view) %s.%s in system schema tables.",
                 callback->keyspace_name.c_str(), callback->table_or_view_name.c_str());
       return;
     }
@@ -610,7 +610,7 @@ void ControlConnection::on_refresh_type(ControlRequestCallback* callback) {
 void ControlConnection::handle_refresh_type(RefreshTypeCallback* callback) {
   const ResultResponse::Ptr result = callback->result();
   if (result->row_count() == 0) {
-    LOG_ERROR("No row found for keyspace %s and type %s in system schema.",
+    LOG_INFO("No row found for keyspace %s and type %s in system schema.",
               callback->keyspace_name.c_str(), callback->type_name.c_str());
     return;
   }
@@ -672,7 +672,7 @@ void ControlConnection::on_refresh_function(ControlRequestCallback* callback) {
 void ControlConnection::handle_refresh_function(RefreshFunctionCallback* callback) {
   const ResultResponse::Ptr result = callback->result();
   if (result->row_count() == 0) {
-    LOG_ERROR("No row found for keyspace %s and %s %s", callback->keyspace_name.c_str(),
+    LOG_INFO("No row found for keyspace %s and %s %s", callback->keyspace_name.c_str(),
               callback->is_aggregate ? "aggregate" : "function",
               Metadata::full_function_name(callback->function_name, callback->arg_types).c_str());
     return;
